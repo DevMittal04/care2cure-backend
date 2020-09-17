@@ -4,7 +4,7 @@ from django.contrib.postgres.fields import ArrayField
 # Create your models here.
 
 class User(models.Model):
-    profile_pic = models.ImageField(upload_to='images/users/')
+    profile_pic = models.ImageField(upload_to='images/users/',blank=True)
     email = models.EmailField(primary_key=True)
     name = models.CharField(max_length=64)
     dob = models.DateField()
