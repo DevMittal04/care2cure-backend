@@ -8,9 +8,11 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
 
-    def __init__(self, instance=None, **kwargs):
-        super().__init__(instance=instance, **kwargs)
-    article = ArticleSerializer()
+    # Tried to associate Users Article with the User Model
+    #def __init__(self, instance=None, **kwargs):
+    #    super().__init__(instance=instance, **kwargs)
+    #article = ArticleSerializer(allow_null=True)
+    
     # To update only certain attributes
     #def __init__(self, *args, **kwargs):
     #    kwargs['partial'] = True

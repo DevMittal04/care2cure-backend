@@ -38,8 +38,13 @@ class Anonymous_Profile(models.Model):
 class Article(models.Model):
     email = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     desc = models.CharField(max_length=512,null=True)
-    pic = models.ImageField(upload_to='images/articles',null=True)
+    pic1 = models.ImageField(upload_to='images/articles',null=True,blank=True)
+    pic2 = models.ImageField(upload_to='images/articles',null=True,blank=True)
     title = models.CharField(max_length=64,null=True)
+
+
+
+
 
 class Counsellor(models.Model):
     profile_pic = models.ImageField(upload_to='images/counsellors/')
