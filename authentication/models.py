@@ -4,11 +4,7 @@ from django.contrib.postgres.fields import ArrayField
 # Create your models here.
 
 class User(models.Model):
-<<<<<<< HEAD
     profile_pic = models.ImageField(upload_to='images/users/', null=True, blank=True)
-=======
-    profile_pic = models.ImageField(upload_to='images/users/',blank=True)
->>>>>>> c38e296d755c709215072727a24de593986b11a3
     email = models.EmailField(primary_key=True)
     name = models.CharField(max_length=64)
     dob = models.DateField()
@@ -42,17 +38,8 @@ class Anonymous_Profile(models.Model):
 class Article(models.Model):
     email = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     desc = models.CharField(max_length=512,null=True)
-<<<<<<< HEAD
     pic = models.ImageField(upload_to='images/articles',null=True, blank=True)
-=======
-    pic1 = models.ImageField(upload_to='images/articles',null=True,blank=True)
-    pic2 = models.ImageField(upload_to='images/articles',null=True,blank=True)
->>>>>>> c38e296d755c709215072727a24de593986b11a3
     title = models.CharField(max_length=64,null=True)
-
-
-
-
 
 class Counsellor(models.Model):
     profile_pic = models.ImageField(upload_to='images/counsellors/')
