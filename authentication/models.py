@@ -4,15 +4,15 @@ from django.contrib.postgres.fields import ArrayField
 # Create your models here.
 
 class User(models.Model):
-    profile_pic = models.ImageField(upload_to='images/users/')
+    profile_pic = models.ImageField(upload_to='images/users/', null=True, blank=True)
     email = models.EmailField(primary_key=True)
     name = models.CharField(max_length=64)
     dob = models.DateField()
     contact = models.BigIntegerField()
     address = models.CharField(max_length=254)
-    acknowledgement = models.BooleanField()
+    acknowledgement = models.BooleanField(null=True, blank=True)
     occupation = models.CharField(max_length=64)
-    marital_status = models.BooleanField()
+    marital_status = models.BooleanField(null=True, blank=True)
     password = models.CharField(max_length=32)
 
 class Anonymous_User(models.Model):
@@ -38,7 +38,7 @@ class Anonymous_Profile(models.Model):
 class Article(models.Model):
     email = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     desc = models.CharField(max_length=512,null=True)
-    pic = models.ImageField(upload_to='images/articles',null=True)
+    pic = models.ImageField(upload_to='images/articles',null=True, blank=True)
     title = models.CharField(max_length=64,null=True)
 
 class Counsellor(models.Model):
@@ -49,4 +49,3 @@ class Counsellor(models.Model):
     ranking = models.IntegerField()
     contact = models.BigIntegerField()
     address = models.CharField(max_length=254)
-    

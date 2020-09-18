@@ -8,9 +8,9 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
 
-    def __init__(self, instance=None, **kwargs):
-        super().__init__(instance=instance, **kwargs)
-    article = ArticleSerializer()
+    #def __init__(self, instance=None, **kwargs):
+    #    super().__init__(instance=instance, **kwargs)
+    #article = ArticleSerializer()
     # To update only certain attributes
     #def __init__(self, *args, **kwargs):
     #    kwargs['partial'] = True
