@@ -3,8 +3,8 @@ from . import views
 
 urlpatterns = [
     # User URLs
-    path('signup/', views.CreateUser, name="Create User"),
-    path('users/',views.UserDetail,name="User Detail"),
+    path('signup', views.CreateUser, name="Create User"),
+    path('users',views.UserDetail,name="User Detail"),
     path('login/<str:pk>', views.UserLogin, name="Users Login"),
     path('update/<str:pk>',views.UpdateUser,name="Update User"),
     path('delete/<str:pk>',views.DeleteUser,name="Delete User"),
