@@ -1,10 +1,26 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 
+import os
+from uuid import uuid4
 # Create your models here.
 
+def path_and_rename(instance, filename):
+    upload_to = 'media/images/users/'
+    ext = filename.split('.')[-1]
+    # get filename
+    if instance.pk:
+        filename = '{}.{}'.format(instance.pk, ext)
+ #   else:
+        # set filename as random string
+#      filename = '{}.{}'.format(uuid4().hex, ext)
+    # return the whole path to the file
+    return os.path.join(upload_to, filename)
+
+
+
 class User(models.Model):
-    profile_pic = models.ImageField(upload_to='images/users/', null=True, blank=True)
+    profile_pic = models.ImageField(upload_to=path_and_rename, null=True, blank=True, default='media/images/users/default_pic.png')
     email = models.EmailField(primary_key=True)
     name = models.CharField(max_length=64)
     dob = models.DateField()
