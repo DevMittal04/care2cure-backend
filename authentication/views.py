@@ -6,8 +6,8 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 import json
 
-from .models import User, Anonymous_User, Counsellor, Article
-from .serializers import UserSerializer, LoginSerializer, AnonymousSerializer, CounsellorSerializer, ArticleSerializer
+from .models import User, Anonymous_User, Counsellor, Article, AgeMorbidityChart
+from .serializers import UserSerializer, LoginSerializer, AnonymousSerializer, CounsellorSerializer, ArticleSerializer, AgeMorbidityChartSerializer
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -174,3 +174,12 @@ def DeleteArticle(request,pk):
     article = Article.objects.get(id=pk)
     article.delete()
     return Response("Counsellor Profile has been Deleted")
+
+
+
+#Age Morbidity Chart API
+@api_view(['GET'])
+def DisplayAgeMorbidityChart(request):
+    rows = AgeMorbidityChart.objects.all()
+    serializer = AgeMorbidityChartSerializer(rows,many=True)
+    return Response(serializer.data)

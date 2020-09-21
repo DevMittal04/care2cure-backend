@@ -49,3 +49,7 @@ class Counsellor(models.Model):
     ranking = models.IntegerField()
     contact = models.BigIntegerField()
     address = models.CharField(max_length=254)
+
+class AgeMorbidityChart(models.Model):
+    age = models.CharField(max_length=16)
+    percentage = models.FloatField()

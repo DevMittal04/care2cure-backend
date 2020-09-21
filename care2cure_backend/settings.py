@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'care2cure_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Care2Cure',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost'
+        'NAME': 'postgres',
+        'USER': 'care2cure',
+        'PASSWORD': 'mentalhealth',
+        'HOST': 'care2cure.cljkoaghnlup.ap-south-1.rds.amazonaws.com'
     }
 }
 

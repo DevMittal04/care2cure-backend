@@ -24,5 +24,9 @@ urlpatterns = [
     path('articles', views.ListArticle, name="List Article"),
     path('addarticle', views.AddArticle, name="Add Article"),
     path('updatearticle', views.UpdateArticle, name="Update Article"),
-    path('deletearticle', views.DeleteArticle, name="Delete Article")
+    path('deletearticle', views.DeleteArticle, name="Delete Article"),
+
+
+    #Charts URLs
+    path('agemorbiditychart',views.DisplayAgeMorbidityChart,name="Age Morbidity Chart")
 ]
