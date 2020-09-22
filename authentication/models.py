@@ -17,7 +17,17 @@ def path_and_rename(instance, filename):
     # return the whole path to the file
     return os.path.join(upload_to, filename)
 
-
+def path_and_rename_counsellor(instance, filename):
+    upload_to = 'media/images/counsellors/'
+    ext = filename.split('.')[-1]
+    # get filename
+    if instance.name:
+        filename = '{}.{}'.format(instance.name, ext)
+ #   else:
+        # set filename as random string
+#      filename = '{}.{}'.format(uuid4().hex, ext)
+    # return the whole path to the file
+    return os.path.join(upload_to, filename)
 
 class User(models.Model):
     profile_pic = models.ImageField(upload_to=path_and_rename, null=True, blank=True, default='media/images/users/default_pic.png')
@@ -58,7 +68,7 @@ class Article(models.Model):
     title = models.CharField(max_length=64,null=True)
 
 class Counsellor(models.Model):
-    profile_pic = models.ImageField(upload_to='images/counsellors/')
+    profile_pic = models.ImageField(upload_to=path_and_rename_counsellor)
     name = models.CharField(max_length=64)
     years_of_exp = models.IntegerField()
     occupation = models.CharField(max_length=64)
