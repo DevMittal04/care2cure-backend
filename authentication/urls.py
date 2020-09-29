@@ -28,5 +28,8 @@ urlpatterns = [
 
 
     #Charts URLs
-    path('agemorbiditychart',views.DisplayAgeMorbidityChart,name="Age Morbidity Chart")
+    path('agemorbiditychart',views.DisplayAgeMorbidityChart,name="Age Morbidity Chart"),
+    path('statedisorderchart',views.DisplayStateDisorderChart,name="State Disorder Chart"),
+    path('suicidalriskchart',views.DisplaySuicidalRiskChart,name="Suicidal Risk Chart"),
+    path('humanresourceschart',views.DisplayHumanResourcesChart,name="Human Resources Chart")
 ]

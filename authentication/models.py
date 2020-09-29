@@ -79,3 +79,17 @@ class Counsellor(models.Model):
 class AgeMorbidityChart(models.Model):
     age = models.CharField(max_length=16)
     percentage = models.FloatField()
+
+class StateDisorderChart(models.Model):
+    state = models.CharField(max_length=16)
+    percentage = models.FloatField()
+
+class SuicidalRiskChart(models.Model):
+    group = models.CharField(max_length=32)
+    percentage = models.FloatField()
+
+class HumanResourcesChart(models.Model):
+    state = models.CharField(max_length=16)
+    psychiatrist = models.FloatField()
+    psychologist = models.FloatField()
+    social_workers = models.FloatField()

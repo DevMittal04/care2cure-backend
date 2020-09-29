@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Anonymous_User, Counsellor, Article,AgeMorbidityChart
+from .models import User, Anonymous_User, Counsellor, Article,AgeMorbidityChart,StateDisorderChart,SuicidalRiskChart,HumanResourcesChart
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -40,3 +40,18 @@ class AgeMorbidityChartSerializer(serializers.ModelSerializer):
     class Meta:
         model = AgeMorbidityChart
         fields = '__all__'       
+
+class StateDisorderChartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StateDisorderChart
+        fields = '__all__'
+
+class SuicidalRiskChartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SuicidalRiskChart
+        fields = '__all__'
+
+class HumanResourcesChartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HumanResourcesChart
+        fields = '__all__'
