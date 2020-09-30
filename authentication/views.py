@@ -48,7 +48,7 @@ def UserLogin(request,pk):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def UserDetail(request,pk):
+def ParticularUserDetail(request,pk):
     user_detail = User.objects.get(email=pk)
     serializer = UserSerializer(user_detail, many=False)
     return Response(serializer.data)
