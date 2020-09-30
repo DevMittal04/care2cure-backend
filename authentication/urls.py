@@ -8,6 +8,7 @@ urlpatterns = [
     path('login/<str:pk>', views.UserLogin, name="Users Login"),
     path('update/<str:pk>',views.UpdateUser,name="Update User"),
     path('delete/<str:pk>',views.DeleteUser,name="Delete User"),
+    path('user/<str:pk>',views.UserDetail,name="User Detail"),
     
     # AnonymousUser URLs
     path('anyuser',views.UserAnonymousDetail,name="User Any"),

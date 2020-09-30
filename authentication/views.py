@@ -47,6 +47,13 @@ def UserLogin(request,pk):
     serializer = LoginSerializer(user_detail, many=False)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def UserDetail(request,pk):
+    user_detail = User.objects.get(email=pk)
+    serializer = UserSerializer(user_detail, many=False)
+    return Response(serializer.data)
+
+
 # Sign Up API
 @api_view(['POST'])
 def CreateUser(request):
