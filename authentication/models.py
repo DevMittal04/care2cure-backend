@@ -78,5 +78,5 @@ class Counsellor(models.Model):
 
 class AgeMorbidityChart(models.Model):
     age = models.CharField(max_length=16)
-    percentage = models.FloatField()
 
+    percentage = models.FloatField()

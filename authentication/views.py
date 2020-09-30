@@ -6,8 +6,8 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 import json
 
-from .models import User, Anonymous_User, Counsellor, Article, AgeMorbidityChart
-from .serializers import UserSerializer, LoginSerializer, AnonymousSerializer, CounsellorSerializer, ArticleSerializer, AgeMorbidityChartSerializer
+from .models import User, Anonymous_User, Counsellor, Article, AgeMorbidityChart, StateDisorderChart, SuicidalRiskChart, HumanResourcesChart
+from .serializers import UserSerializer, LoginSerializer, AnonymousSerializer, CounsellorSerializer, ArticleSerializer, AgeMorbidityChartSerializer, StateDisorderChartSerializer, SuicidalRiskChartSerializer, HumanResourcesChartSerializer
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -183,3 +183,25 @@ def DisplayAgeMorbidityChart(request):
     rows = AgeMorbidityChart.objects.all()
     serializer = AgeMorbidityChartSerializer(rows,many=True)
     return Response(serializer.data)
+
+#State Disorder Chart API
+@api_view(['GET'])
+def DisplayStateDisorderChart(request):
+    rows = StateDisorderChart.objects.all()
+    serializer = StateDisorderChartSerializer(rows,many=True)
+    return Response(serializer.data)
+
+#Sucidial Risk Chart API
+@api_view(['GET'])
+def DisplaySuicidalRiskChart(request):
+    rows = SuicidalRiskChart.objects.all()
+    serializer = SuicidalRiskChartSerializer(rows,many=True)
+    return Response(serializer.data)
+
+#Human Resources Chart API
+@api_view(['GET'])
+def DisplayHumanResourcesChart(request):
+    rows = HumanResourcesChart.objects.all()
+    serializer = HumanResourcesChartSerializer(rows,many=True)
+    return Response(serializer.data)
+
