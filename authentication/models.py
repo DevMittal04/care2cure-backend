@@ -49,10 +49,10 @@ class Anonymous_User(models.Model):
 
 class Profile(models.Model):
     email = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    progress_file = models.FileField()
-    counsellors_consulted = ArrayField(models.CharField(max_length=64))
-    questions = ArrayField(models.CharField(max_length=64, blank=True))
-    answers = ArrayField(models.CharField(max_length=64, blank=True))
+    progress_file = models.FileField(null=True,blank=True)
+    counsellors_consulted = ArrayField(models.CharField(max_length=64),blank=True)
+    questions = ArrayField(models.CharField(max_length=64, blank=True),null=True)
+    answers = ArrayField(models.CharField(max_length=64, blank=True),null=True)
 
 class Anonymous_Profile(models.Model):
     username = models.OneToOneField(Anonymous_User, on_delete=models.CASCADE, primary_key=True)

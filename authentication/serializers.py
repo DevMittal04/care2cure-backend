@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Anonymous_User, Counsellor, Article,AgeMorbidityChart,StateDisorderChart,SuicidalRiskChart,HumanResourcesChart
+from .models import User, Anonymous_User, Counsellor, Article,AgeMorbidityChart,StateDisorderChart,SuicidalRiskChart,HumanResourcesChart,Profile
 
 class Base64ImageField(serializers.ImageField):
     """
@@ -105,4 +105,9 @@ class SuicidalRiskChartSerializer(serializers.ModelSerializer):
 class HumanResourcesChartSerializer(serializers.ModelSerializer):
     class Meta:
         model = HumanResourcesChart
+        fields = '__all__'
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
         fields = '__all__'

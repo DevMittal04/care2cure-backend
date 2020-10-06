@@ -6,30 +6,32 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 import json
 
-from .models import User, Anonymous_User, Counsellor, Article, AgeMorbidityChart, StateDisorderChart, SuicidalRiskChart, HumanResourcesChart
-from .serializers import UserSerializer, LoginSerializer, AnonymousSerializer, CounsellorSerializer, ArticleSerializer, AgeMorbidityChartSerializer, StateDisorderChartSerializer, SuicidalRiskChartSerializer, HumanResourcesChartSerializer
+from .models import User, Anonymous_User, Counsellor, Article, AgeMorbidityChart, StateDisorderChart, SuicidalRiskChart, HumanResourcesChart, Profile
+from .serializers import UserSerializer, LoginSerializer, AnonymousSerializer, CounsellorSerializer, ArticleSerializer, AgeMorbidityChartSerializer, StateDisorderChartSerializer, SuicidalRiskChartSerializer, HumanResourcesChartSerializer, ProfileSerializer
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
 
-# Create your views here.
-'''
-def createUser(info):
-      profilePic = info["profilePic"]
-      email = info["email"]
-      name = info["name"]
-      dob = info["dob"]
-      contact = info["contact"]
-      address = info["address"]
 
-class UserCRUD(APIView):
 
-    def get(self, request, format="json"):
-        info = json.loads((request.body).decode('utf-8'))
-        create = createUser(info)
-        return JsonResponse(create,safe=False)
 '''
+PyPower Projects
+Emotion Detection Using AI
+'''
+
+#USAGE : python test.py
+
+from keras.models import load_model
+from time import sleep
+from keras.preprocessing.image import img_to_array
+from keras.preprocessing import image
+import cv2
+import numpy as np
+
+
+
+
 
 # Registered Users APIs
 
@@ -212,3 +214,62 @@ def DisplayHumanResourcesChart(request):
     serializer = HumanResourcesChartSerializer(rows,many=True)
     return Response(serializer.data)
 
+#Emotion Capture
+@api_view(['GET'])
+def EmotionCapture(request):
+
+    face_classifier = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
+    classifier =load_model('./Emotion_Detection.h5')
+
+    class_labels = ['Angry','Happy','Neutral','Sad','Surprise']
+
+    cap = cv2.VideoCapture(0)
+
+
+
+    while True:
+        # Grab a single frame of video
+        ret, frame = cap.read()
+        labels = []
+        gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+        faces = face_classifier.detectMultiScale(gray,1.3,5)
+
+        for (x,y,w,h) in faces:
+            cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2)
+            roi_gray = gray[y:y+h,x:x+w]
+            roi_gray = cv2.resize(roi_gray,(48,48),interpolation=cv2.INTER_AREA)
+
+
+            if np.sum([roi_gray])!=0:
+                roi = roi_gray.astype('float')/255.0
+                roi = img_to_array(roi)
+                roi = np.expand_dims(roi,axis=0)
+
+            # make a prediction on the ROI, then lookup the class
+
+                preds = classifier.predict(roi)[0]
+                print("\nprediction = ",preds)
+                label=class_labels[preds.argmax()]
+                print("\nprediction max = ",preds.argmax())
+                print("\nlabel = ",label)
+                label_position = (x,y)
+                cv2.putText(frame,label,label_position,cv2.FONT_HERSHEY_SIMPLEX,2,(0,255,0),3)
+            else:
+                cv2.putText(frame,'No Face Found',(20,60),cv2.FONT_HERSHEY_SIMPLEX,2,(0,255,0),3)
+            print("\n\n")
+                cv2.imshow('Emotion Detector',frame)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+
+        cap.release()
+        cv2.destroyAllWindows()
+
+
+#Dialog Flow
+@api_view(['POST'])
+def AddProfile(request):
+    serializer = ProfileSerializer(data=request.data)
+    if(serializer.is_valid()):
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

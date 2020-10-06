@@ -32,5 +32,11 @@ urlpatterns = [
     path('agemorbiditychart',views.DisplayAgeMorbidityChart,name="Age Morbidity Chart"),
     path('statedisorderchart',views.DisplayStateDisorderChart,name="State Disorder Chart"),
     path('suicidalriskchart',views.DisplaySuicidalRiskChart,name="Suicidal Risk Chart"),
-    path('humanresourceschart',views.DisplayHumanResourcesChart,name="Human Resources Chart")
+    path('humanresourceschart',views.DisplayHumanResourcesChart,name="Human Resources Chart"),
+
+    #Emotion Capture URLs
+    path('emotioncapture',views.EmotionCapture,name="emotion"),
+
+    #Profile URLs
+    path('addprofile',views.AddProfile,name="add profile")
 ]
