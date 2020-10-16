@@ -13,15 +13,15 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Anonymous_User',
-            fields=[
-                ('username', models.CharField(max_length=64, primary_key=True, serialize=False)),
-                ('dob', models.DateField()),
-                ('occupation', models.CharField(max_length=64)),
-                ('marital_status', models.BooleanField()),
-            ],
-        ),
+        # migrations.CreateModel(
+        #     name='Anonymous_User',
+        #     fields=[
+        #         ('username', models.CharField(max_length=64, primary_key=True, serialize=False)),
+        #         ('dob', models.DateField()),
+        #         ('occupation', models.CharField(max_length=64)),
+        #         ('marital_status', models.BooleanField()),
+        #     ],
+        # ),
         migrations.CreateModel(
             name='Counsellor',
             fields=[
@@ -50,16 +50,16 @@ class Migration(migrations.Migration):
                 ('password', models.CharField(max_length=32)),
             ],
         ),
-        migrations.CreateModel(
-            name='Anonymous_Profile',
-            fields=[
-                ('username', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to='authentication.Anonymous_User')),
-                ('progress_file', models.FileField(upload_to='')),
-                ('counsellors_consulted', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=64), size=None)),
-                ('questions', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=64), size=None)),
-                ('answers', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=64), size=None)),
-            ],
-        ),
+        # migrations.CreateModel(
+        #     name='Anonymous_Profile',
+        #     fields=[
+        #         ('username', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to='authentication.Anonymous_User')),
+        #         ('progress_file', models.FileField(upload_to='')),
+        #         ('counsellors_consulted', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=64), size=None)),
+        #         ('questions', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=64), size=None)),
+        #         ('answers', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=64), size=None)),
+        #     ],
+        # ),
         migrations.CreateModel(
             name='Profile',
             fields=[

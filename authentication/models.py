@@ -42,10 +42,10 @@ class User(models.Model):
     password = models.CharField(max_length=32)
 
 class Anonymous_User(models.Model):
-    username = models.CharField(max_length=64, primary_key=True)
-    dob = models.DateField()
-    occupation = models.CharField(max_length=64)
-    marital_status = models.BooleanField()
+    id = models.IntegerField(default=-1,primary_key=True)
+    username = models.CharField(max_length=64)
+    
+    
 
 class Profile(models.Model):
     email = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
@@ -93,3 +93,16 @@ class HumanResourcesChart(models.Model):
     psychiatrist = models.FloatField()
     psychologist = models.FloatField()
     social_workers = models.FloatField()
+
+class ChatBots(models.Model):
+    key = models.CharField(max_length=64)
+    #_from = models.CharField(max_length=16,null=True,blank=True)
+    groupId = models.BigIntegerField()
+    clientGroupId = models.CharField(max_length=16)
+    #groupName = models.CharField(max_length=16)
+    message = models.CharField(max_length=512)
+    #timeStamp = models.BigIntegerField()
+    #receiverConnected = models.BooleanField()
+    #receiverLastSeenAtTime = models.BigIntegerField()
+    
+

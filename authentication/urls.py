@@ -36,7 +36,10 @@ urlpatterns = [
 
     #Emotion Capture URLs
     path('emotioncapture',views.EmotionCapture,name="emotion"),
+    path('video_feed', views.video_feed, name='video_feed'),
 
     #Profile URLs
-    path('addprofile',views.AddProfile,name="add profile")
+    path('addprofile',views.AddProfile,name="add profile"),
+
+    path('chatbot',views.Chat,name="chatbot")
 ]

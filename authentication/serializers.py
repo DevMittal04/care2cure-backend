@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Anonymous_User, Counsellor, Article,AgeMorbidityChart,StateDisorderChart,SuicidalRiskChart,HumanResourcesChart,Profile
+from .models import User, Anonymous_User, Counsellor, Article,AgeMorbidityChart,StateDisorderChart,SuicidalRiskChart,HumanResourcesChart,Profile,ChatBots
 
 class Base64ImageField(serializers.ImageField):
     """
@@ -65,9 +65,9 @@ class UserSerializer(serializers.ModelSerializer):
     #def __init__(self, *args, **kwargs):
     #    kwargs['partial'] = True
     #    super(UserSerializer, self).__init__(*args, **kwargs)
-    profile_pic = Base64ImageField(
-        max_length=None, use_url=True,
-    )
+    # profile_pic = Base64ImageField(
+    #     max_length=None, use_url=True,
+    # )
     class Meta:
         model = User
         fields = '__all__'
@@ -111,3 +111,9 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = '__all__'
+
+class ChatBotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChatBots
+        fields = '__all__'
+

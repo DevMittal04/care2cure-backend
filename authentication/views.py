@@ -6,8 +6,11 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 import json
 
-from .models import User, Anonymous_User, Counsellor, Article, AgeMorbidityChart, StateDisorderChart, SuicidalRiskChart, HumanResourcesChart, Profile
-from .serializers import UserSerializer, LoginSerializer, AnonymousSerializer, CounsellorSerializer, ArticleSerializer, AgeMorbidityChartSerializer, StateDisorderChartSerializer, SuicidalRiskChartSerializer, HumanResourcesChartSerializer, ProfileSerializer
+from django.http.response import StreamingHttpResponse
+from authentication.camera import VideoCamera
+
+from .models import User, Anonymous_User, Counsellor, Article, AgeMorbidityChart, StateDisorderChart, SuicidalRiskChart, HumanResourcesChart, Profile, ChatBots
+from .serializers import UserSerializer, LoginSerializer, AnonymousSerializer, CounsellorSerializer, ArticleSerializer, AgeMorbidityChartSerializer, StateDisorderChartSerializer, SuicidalRiskChartSerializer, HumanResourcesChartSerializer, ProfileSerializer, ChatBotSerializer
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -225,9 +228,9 @@ def EmotionCapture(request):
 
     cap = cv2.VideoCapture(0)
 
+    cv2.namedWindow("Emotion Detector", cv2.WINDOW_KEEPRATIO)
 
-
-    while True:
+    while cv2.getWindowProperty('Emotion Detector', cv2.WND_PROP_VISIBLE) >= 1 :
         # Grab a single frame of video
         ret, frame = cap.read()
         labels = []
@@ -257,13 +260,13 @@ def EmotionCapture(request):
             else:
                 cv2.putText(frame,'No Face Found',(20,60),cv2.FONT_HERSHEY_SIMPLEX,2,(0,255,0),3)
             print("\n\n")
-                cv2.imshow('Emotion Detector',frame)
-                if cv2.waitKey(1) & 0xFF == ord('q'):
-                    break
+        cv2.imshow('Emotion Detector',frame)
+        if cv2.waitKey(1) & 0xFF == ord('b'):
+            break
 
-        cap.release()
-        cv2.destroyAllWindows()
-
+    cap.release()
+    cv2.destroyAllWindows()
+    return Response("Emotion Captured")
 
 #Dialog Flow
 @api_view(['POST'])
@@ -273,3 +276,39 @@ def AddProfile(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#ChatBot Kommunicate
+@api_view(['POST'])
+def Chat(request):
+    ques_list = ["okay","sejal gupta created group Conversations","We are here for you . do not worry ! We are here to ask you a few questions just to understand how you feel!", "We are here to help you! We are here to ask you a few questions just to understand how you feel!", "Do you ever feel nervous within yourself and angry because of it?", "Do you end up in a situation where you are out of control and suddenly feel intense fear?", "Do you feel tensed sometimes and does that lead to heavy breathing?", "Do you often feel sweaty?", "Do you often feel lost even while you are in a group?", "Do you sleep more/less than 6-10 hours?", "Do you often feel negative about everything around you and that you cannot do it?", "Do you feel like unable to give proper efforts and concentration to your work , be it college, school or office?", "Do you lose control over control over small things?", "Do you feel like your reactions are sometimes way too much for a given situation?", "Have you felt that you have started eating less/more than you used to?", "Were there circumstances where you have thought of giving up?", "Do you feel tired  without doing anything?", "Do you have people you can trust/rely on?", "Are you active  on Social Media?", "Do you feel like your weight has increased/decreased?", "Do you often find yourself surrounded with material things more compared to people?", "Do you feel shy interacting with people?", "Do you often think of stressful bad memories from past?", "Do you often cancel on plans", "Do you often feel things will not work the way you want it to?", "Do you feel like things that are happening with you are the consequences of your actions", "Do you dream something bad often?", "Did not get you? We are here to make  you understand how you feel! To answer the question send 'okay' and reply in yes or no mostly :) Thank You!", "Thank You For Answering! You did amazing! Proud! Wait for a while and you will get your report."]
+    serializer = ChatBotSerializer(data=request.data)
+    if(serializer.is_valid()):
+        if(serializer.validated_data['message'] not in ques_list): 
+            print("Valid data")
+            print(serializer.validated_data['message'])
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        elif(serializer.validated_data['message'] == "Thank You For Answering! You did amazing! Proud! Wait for a while and you will get your report."):
+            group_id = serializer.validated_data['groupId']
+            print(group_id)
+
+            return Response("Done")
+        else:
+            return Response("Invalid Data")
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def gen(camera):
+	while True:
+		#yield(camera.get_frame())
+		frame = camera.get_frame()
+		yield (b'--frame\r\n'
+				b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+
+def video_feed(request):
+	return StreamingHttpResponse(gen(VideoCamera()),
+					content_type='multipart/x-mixed-replace; boundary=frame')
+
+
+
+    
