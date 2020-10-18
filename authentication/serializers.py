@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Anonymous_User, Counsellor, Article,AgeMorbidityChart,StateDisorderChart,SuicidalRiskChart,HumanResourcesChart,Profile,ChatBots
+from .models import User, Anonymous_User, Counsellor, Article,AgeMorbidityChart,StateDisorderChart,SuicidalRiskChart,HumanResourcesChart,Profile,ChatBots, MentalStates
 
 class Base64ImageField(serializers.ImageField):
     """
@@ -75,7 +75,7 @@ class UserSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email','password')
+        fields = ('email','password','name')
 
 class AnonymousSerializer(serializers.ModelSerializer):
     class Meta:
@@ -117,3 +117,7 @@ class ChatBotSerializer(serializers.ModelSerializer):
         model = ChatBots
         fields = '__all__'
 
+class MentalStatesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MentalStates
+        fields = '__all__'

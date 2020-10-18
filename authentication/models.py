@@ -3,6 +3,8 @@ from django.contrib.postgres.fields import ArrayField
 
 import os
 from uuid import uuid4
+from django.utils import timezone
+import datetime
 # Create your models here.
 
 def path_and_rename(instance, filename):
@@ -41,25 +43,35 @@ class User(models.Model):
     marital_status = models.BooleanField(null=True, blank=True)
     password = models.CharField(max_length=32)
 
+    def __str__(self):
+        return str(self.email)
+
 class Anonymous_User(models.Model):
-    id = models.IntegerField(default=-1,primary_key=True)
+    id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=64)
     
-    
-
 class Profile(models.Model):
     email = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    progress_file = models.FileField(null=True,blank=True)
     counsellors_consulted = ArrayField(models.CharField(max_length=64),blank=True)
-    questions = ArrayField(models.CharField(max_length=64, blank=True),null=True)
-    answers = ArrayField(models.CharField(max_length=64, blank=True),null=True)
 
-class Anonymous_Profile(models.Model):
-    username = models.OneToOneField(Anonymous_User, on_delete=models.CASCADE, primary_key=True)
-    progress_file = models.FileField()
-    counsellors_consulted = ArrayField(models.CharField(max_length=64, blank=True))
-    questions = ArrayField(models.CharField(max_length=64, blank=True))
-    answers = ArrayField(models.CharField(max_length=64, blank=True))
+class MentalStates(models.Model):
+    email = models.ForeignKey(User, on_delete=models.CASCADE)
+    state = models.CharField(max_length=16)
+    datetime = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.email)
+
+    #progress_file = models.FileField(null=True,blank=True)
+    #questions = ArrayField(models.CharField(max_length=64, blank=True),null=True)
+    #answers = ArrayField(models.CharField(max_length=64, blank=True),null=True)
+
+# class Anonymous_Profile(models.Model):
+#     username = models.OneToOneField(Anonymous_User, on_delete=models.CASCADE, primary_key=True)
+#     progress_file = models.FileField()
+#     counsellors_consulted = ArrayField(models.CharField(max_length=64, blank=True))
+#     questions = ArrayField(models.CharField(max_length=64, blank=True))
+#     answers = ArrayField(models.CharField(max_length=64, blank=True))
 
 class Article(models.Model):
     email = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
@@ -96,13 +108,16 @@ class HumanResourcesChart(models.Model):
 
 class ChatBots(models.Model):
     key = models.CharField(max_length=64)
-    #_from = models.CharField(max_length=16,null=True,blank=True)
     groupId = models.BigIntegerField()
     clientGroupId = models.CharField(max_length=16)
-    #groupName = models.CharField(max_length=16)
     message = models.CharField(max_length=512)
+    email = models.EmailField(blank=True, null=True)
+    #_from = models.CharField(max_length=16,null=True,blank=True)
+    #groupName = models.CharField(max_length=16)
     #timeStamp = models.BigIntegerField()
     #receiverConnected = models.BooleanField()
     #receiverLastSeenAtTime = models.BigIntegerField()
-    
 
+    def __str__(self):
+        return self.message
+    

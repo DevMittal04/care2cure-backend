@@ -9,11 +9,14 @@ urlpatterns = [
     path('update/<str:pk>',views.UpdateUser,name="Update User"),
     path('delete/<str:pk>',views.DeleteUser,name="Delete User"),
     path('user/<str:pk>',views.ParticularUserDetail,name="User Detail"),
+
+    # Mental State URLs
+    path('mentalstate/<str:pk>', views.ShowMentalStates, name="Mental States"),
     
     # AnonymousUser URLs
     path('anyuser',views.UserAnonymousDetail,name="User Any"),
     path('createanyuser',views.CreateUserAnonymous,name="Create Any User"),
-    path('updateanyuser/<str:pk>',views.UpdateUserAnonymous,name="Update any user"),
+    path('deleteanyuser/<str:pk>',views.DeleteUserAnonymous,name="Update any user"),
 
     # Counsellor URLs
     path('counsellors',views.CounsellorDetail,name="Counsellor"),
@@ -35,11 +38,9 @@ urlpatterns = [
     path('humanresourceschart',views.DisplayHumanResourcesChart,name="Human Resources Chart"),
 
     #Emotion Capture URLs
-    path('emotioncapture',views.EmotionCapture,name="emotion"),
     path('video_feed', views.video_feed, name='video_feed'),
 
-    #Profile URLs
-    path('addprofile',views.AddProfile,name="add profile"),
-
-    path('chatbot',views.Chat,name="chatbot")
+    #Chatbot URLs
+    path('chatbot',views.Chat,name="Chatbot"),
+    path('test', views.testSenti, name="test module")
 ]
