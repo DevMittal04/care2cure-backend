@@ -63,7 +63,6 @@ def ParticularUserDetail(request,pk):
     serializer = UserSerializer(user_detail, many=False)
     return Response(serializer.data)
 
-
 # Sign Up API
 @api_view(['POST'])
 def CreateUser(request):
@@ -106,6 +105,12 @@ def ShowMentalStates(request,pk):
 def UserAnonymousDetail(request):
     user_detail = Anonymous_User.objects.all()
     serializer = AnonymousSerializer(user_detail, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def ParticularAnonymousUserDetail(request,pk):
+    anonyUser = Anonymous_User.objects.get(id=pk)
+    serializer = AnonymousSerializer(anonyUser, many=False)
     return Response(serializer.data)
 
 # Create Anonymous User API
@@ -258,6 +263,12 @@ def testSenti(request):
             print('negative')
 
     return HttpResponse("Done")
+
+@api_view(['GET'])
+def testAnony(request):
+    user = Anonymous_User.objects.get(id=3)
+    print(str(user.id)+"_"+user.username)
+    return Response("Done")
 
 
 #ChatBot Kommunicate

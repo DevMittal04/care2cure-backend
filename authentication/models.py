@@ -50,6 +50,9 @@ class Anonymous_User(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=64)
     
+    def __str__(self):
+        return self.id
+
 class Profile(models.Model):
     email = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     counsellors_consulted = ArrayField(models.CharField(max_length=64),blank=True)
