@@ -15,8 +15,8 @@ urlpatterns = [
     
     # AnonymousUser URLs
     path('anyuser',views.UserAnonymousDetail,name="User Any"),
-    path('anoyuser/<str:pk>', views.ParticularAnonymousUserDetail, "Anonymous User Details"),
-    path('createanyuser',views.CreateUserAnonymous,name="Create Any User"),
+    #path('anoyuser/<str:pk>', views.ParticularAnonymousUserDetail, "Anonymous User Details"),
+    # path('createanyuser',views.CreateUserAnonymous,name="Create Any User"),
     path('deleteanyuser/<str:pk>',views.DeleteUserAnonymous,name="Update any user"),
 
     # Counsellor URLs
@@ -43,5 +43,6 @@ urlpatterns = [
 
     #Chatbot URLs
     path('chatbot',views.Chat,name="Chatbot"),
-    path('test', views.testAnony, name="test module")
+    path('mentalhealthchart/<str:pk>', views.MentalHealthChart, name="Mental Health Chart"),
+    path('test', views.testMakeAnony, name="test module")
 ]
