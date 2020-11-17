@@ -42,28 +42,24 @@ class User(models.Model):
     dob = models.DateField()
     contact = models.BigIntegerField()
     address = models.CharField(max_length=254)
+ #
     acknowledgement = models.BooleanField(null=True, blank=True)
     occupation = models.CharField(max_length=64)
+ #
     marital_status = models.BooleanField(null=True, blank=True)
     password = models.CharField(max_length=32)
 
-    # def __str__(self):
-    #     return str(self.email)
-
+    def __str__(self):
+        return str(self.email)
+#
 class Anonymous_User(models.Model):
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=64, null=True, blank=True)
     
-    # def __str__(self):
-    #     return str(self.id)
+    def __str__(self):
+        return str(self.id)
 
-# class Anonymous_Profile(models.Model):
-#     username = models.OneToOneField(Anonymous_User, on_delete=models.CASCADE, primary_key=True)
-#     progress_file = models.FileField()
-#     counsellors_consulted = ArrayField(models.CharField(max_length=64, blank=True))
-#     questions = ArrayField(models.CharField(max_length=64, blank=True))
-#     answers = ArrayField(models.CharField(max_length=64, blank=True))
-
+#
 class Profile(models.Model):
     email = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     counsellors_consulted = ArrayField(models.CharField(max_length=64),blank=True)
@@ -73,17 +69,18 @@ class MentalStates(models.Model):
     state = models.CharField(max_length=16)
     datetime = models.DateTimeField(default=timezone.now)
 
-    # def __str__(self):
-    #     return str(self.email)
+    def __str__(self):
+        return str(self.email)
 
 class Article(models.Model):
     email = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     desc = models.CharField(max_length=512,null=True)
+#
     pic = models.ImageField(upload_to='images/articles',null=True, blank=True)
     title = models.CharField(max_length=64,null=True)
 
-    # def __str__(self):
-    #     return self.title
+    def __str__(self):
+        return self.title
 
 class Counsellor(models.Model):
     profile_pic = models.ImageField(upload_to=path_and_rename_counsellor)
@@ -94,8 +91,8 @@ class Counsellor(models.Model):
     contact = models.BigIntegerField()
     address = models.CharField(max_length=254)
 
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.name
 
 class AgeMorbidityChart(models.Model):
     age = models.CharField(max_length=16)
