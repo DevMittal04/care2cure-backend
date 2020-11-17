@@ -17,7 +17,6 @@ from rest_framework.response import Response
 from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
 
 from authentication.careChat import ProcessChat
-from textblob import TextBlob 
 
 from django.http.response import StreamingHttpResponse
 from authentication.camera import VideoCamera
@@ -285,20 +284,20 @@ def testChat(request):
     row = MentalStates.objects.create(email=user,state=result)
     return Response("Done")
 
-@api_view(['GET'])
-def testSenti(request):
-    c = ["Yes", "No"]
-    for line in c:
-        analysis = TextBlob(line) 
-    # set sentiment 
-        if analysis.sentiment.polarity > 0: 
-            print('positive')
-        elif analysis.sentiment.polarity == 0: 
-            print('neutral')
-        else: 
-            print('negative')
+# @api_view(['GET'])
+# def testSenti(request):
+#     c = ["Yes", "No"]
+#     for line in c:
+#         analysis = TextBlob(line) 
+#     # set sentiment 
+#         if analysis.sentiment.polarity > 0: 
+#             print('positive')
+#         elif analysis.sentiment.polarity == 0: 
+#             print('neutral')
+#         else: 
+#             print('negative')
 
-    return HttpResponse("Done")
+#     return HttpResponse("Done")
 
 @api_view(['GET'])
 def testAnony(request):
