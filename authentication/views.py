@@ -9,8 +9,8 @@ from django.utils import timezone
 import datetime
 import re
 
-from .models import User, Anonymous_User, Counsellor, Article, AgeMorbidityChart, StateDisorderChart, SuicidalRiskChart, HumanResourcesChart, Profile, ChatBots, MentalStates
-from .serializers import UserSerializer, LoginSerializer, AnonymousSerializer, CounsellorSerializer, ArticleSerializer, AgeMorbidityChartSerializer, StateDisorderChartSerializer, SuicidalRiskChartSerializer, HumanResourcesChartSerializer, ProfileSerializer, ChatBotSerializer, MentalStatesSerializer
+from .models import User, Counsellor, Article, AgeMorbidityChart, StateDisorderChart, SuicidalRiskChart, HumanResourcesChart, ChatBots, MentalStates
+from .serializers import UserSerializer, LoginSerializer, CounsellorSerializer, ArticleSerializer, AgeMorbidityChartSerializer, StateDisorderChartSerializer, SuicidalRiskChartSerializer, HumanResourcesChartSerializer, ChatBotSerializer, MentalStatesSerializer
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -93,18 +93,18 @@ def ShowMentalStates(request,pk):
 
 # Anonymous User APIs
 # List of all the anonymous users API (for testing purpose)
-@api_view(['GET'])
-def UserAnonymousDetail(request):
-    user_detail = Anonymous_User.objects.all()
-    serializer = AnonymousSerializer(user_detail, many=True)
-    return Response(serializer.data)
+# @api_view(['GET'])
+# def UserAnonymousDetail(request):
+#     user_detail = Anonymous_User.objects.all()
+#     serializer = AnonymousSerializer(user_detail, many=True)
+#     return Response(serializer.data)
 
-# Single Anonymous User Details API
-@api_view(['GET'])
-def ParticularAnonymousUserDetail(request,pk):
-    anonyUser = Anonymous_User.objects.get(id=pk)
-    serializer = AnonymousSerializer(anonyUser, many=False)
-    return Response(serializer.data)
+# # Single Anonymous User Details API
+# @api_view(['GET'])
+# def ParticularAnonymousUserDetail(request,pk):
+#     anonyUser = Anonymous_User.objects.get(id=pk)
+#     serializer = AnonymousSerializer(anonyUser, many=False)
+#     return Response(serializer.data)
 
 # Create Anonymous User API
 # @api_view(['POST'])
@@ -116,12 +116,12 @@ def ParticularAnonymousUserDetail(request,pk):
 #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
  #Delete Anonymous User Account API
-@api_view(['DELETE'])
-def DeleteUserAnonymous(request,pk):
-    user = Anonymous_User.objects.get(id=pk)
-    user.delete()
-    print("User deleted")
-    return Response("Your Data is Deleted")
+# @api_view(['DELETE'])
+# def DeleteUserAnonymous(request,pk):
+#     user = Anonymous_User.objects.get(id=pk)
+#     user.delete()
+#     print("User deleted")
+#     return Response("Your Data is Deleted")
 
 # Counsellors APIs
 # List of all the counsellors API (for testing purpose)
@@ -229,7 +229,7 @@ def MentalHealthChart(request,pk):
 # ChatBot Kommunicate
 @api_view(['POST'])
 def Chat(request):
-    ques_list = ["okay","sejal gupta created group Conversations","We are here for you . do not worry ! We are here to ask you a few questions just to understand how you feel!", "We are here to help you! We are here to ask you a few questions just to understand how you feel!", "Do you ever feel nervous within yourself and angry because of it?", "Do you end up in a situation where you are out of control and suddenly feel intense fear?", "Do you feel tensed sometimes and does that lead to heavy breathing?", "Do you often feel sweaty?", "Do you often feel lost even while you are in a group?", "Do you sleep more/less than 6-10 hours?", "Do you often feel negative about everything around you and that you cannot do it?", "Do you feel like unable to give proper efforts and concentration to your work , be it college, school or office?", "Do you lose control over control over small things?", "Do you feel like your reactions are sometimes way too much for a given situation?", "Have you felt that you have started eating less/more than you used to?", "Were there circumstances where you have thought of giving up?", "Do you feel tired  without doing anything?", "Do you have people you can trust/rely on?", "Are you active  on Social Media?", "Do you feel like your weight has increased/decreased?", "Do you often find yourself surrounded with material things more compared to people?", "Do you feel shy interacting with people?", "Do you often think of stressful bad memories from past?", "Do you often cancel on plans", "Do you often feel things will not work the way you want it to?", "Do you feel like things that are happening with you are the consequences of your actions", "Do you dream something bad often?", "Did not get you? We are here to make  you understand how you feel! To answer the question send 'okay' and reply in yes or no mostly :) Thank You!", "Thank You For Answering! You did amazing! Proud! Wait for a while and you will get your report."]
+    ques_list = ["ok","okay","Great","srishti kedia created group Conversations","We are here for you . do not worry ! We are here to ask you a few questions just to understand how you feel!", "We are here to help you! We are here to ask you a few questions just to understand how you feel!", "Do you ever feel nervous within yourself and angry because of it?", "Do you end up in a situation where you are out of control and suddenly feel intense fear?", "Do you feel tensed sometimes and does that lead to heavy breathing?", "Do you often feel sweaty?", "Do you often feel lost even while you are in a group?", "Do you sleep more/less than 6-10 hours?", "Do you often feel negative about everything around you and that you cannot do it?", "Do you feel like unable to give proper efforts and concentration to your work , be it college, school or office?", "Do you lose control over control over small things?", "Do you feel like your reactions are sometimes way too much for a given situation?", "Have you felt that you have started eating less/more than you used to?", "Were there circumstances where you have thought of giving up?", "Do you feel tired  without doing anything?", "Do you have people you can trust/rely on?", "Are you active  on Social Media?", "Do you feel like your weight has increased/decreased?", "Do you often find yourself surrounded with material things more compared to people?", "Do you feel shy interacting with people?", "Do you often think of stressful bad memories from past?", "Do you often cancel on plans", "Do you often feel things will not work the way you want it to?", "Do you feel like things that are happening with you are the consequences of your actions", "Do you dream something bad often?", "Did not get you? We are here to make  you understand how you feel! To answer the question send 'okay' and reply in yes or no mostly :) Thank You!", "Thank You For Answering! You did amazing! Proud! Wait for a while and you will get your report."]
     serializer = ChatBotSerializer(data=request.data)
     if(serializer.is_valid()):
         if(serializer.validated_data['message'] not in ques_list):
@@ -299,20 +299,20 @@ def testChat(request):
 
 #     return HttpResponse("Done")
 
-@api_view(['GET'])
-def testAnony(request):
-    user = Anonymous_User.objects.get(id=3)
-    print(str(user.id)+"_"+user.username)
-    return Response("Done")
+# @api_view(['GET'])
+# def testAnony(request):
+#     user = Anonymous_User.objects.get(id=3)
+#     print(str(user.id)+"_"+user.username)
+#     return Response("Done")
 
-@api_view(['POST'])
-def testMakeAnony(request):
-    CUser = Anonymous_User.objects.create()
-    # SUser = Anonymous_User.objects.get(id=CUser.id)
-    # print(SUser)
-    d = {id : CUser}
-    serializer = AnonymousSerializer(data=d, many=False)
-    if(serializer.is_valid()):
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# @api_view(['POST'])
+# def testMakeAnony(request):
+#     CUser = Anonymous_User.objects.create()
+#     # SUser = Anonymous_User.objects.get(id=CUser.id)
+#     # print(SUser)
+#     d = {id : CUser}
+#     serializer = AnonymousSerializer(data=d, many=False)
+#     if(serializer.is_valid()):
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
